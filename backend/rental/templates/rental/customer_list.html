@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between">
+                <h5>All Customers ({{ items.count }})</h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <a class='btn btn-sm btn-primary ml-2' href="{% url 'customer-create' %}">+ Add</a>
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            <table class="table sortable">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Bookings</th>
+                    <th>Modify</th>
+                </tr>
+
+                {% for item in items %}
+                <tr>
+                    <td>
+                        <a href="{% url 'customer-detail' item.id %}">{{ item.id }}</a>
+                    </td>
+                    <td>{{ item.name|default_if_none:"" }}</td>
+                    <td>{{ item.email|default_if_none:"" }}</td>
+                    <td>{{ item.phone|default_if_none:"" }}</td>
+                    <td><a href="{% url 'bookings-of-customer' item.id %}">{{ item.booking_set.count}}</a></td>
+                    <td>
+                        <a class='btn btn-sm btn-primary' href="{% url 'customer-update' item.id %}">Edit</a>
+                        <a class='btn btn-sm btn-danger' href="{% url 'customer-delete' item.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

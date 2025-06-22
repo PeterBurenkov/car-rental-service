@@ -1,0 +1,37 @@
+{% block content %}
+
+<table class="table sortable">
+    <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>{{ car.id }}</td>
+    </tr>
+    <tr>
+        <td>model</td>
+        <td>{{ car.model|default_if_none:"" }}
+            (<a href="{% url 'car-model-detail' car.model.id %}">#{{car.model.id}}</a>)
+        </td>
+    </tr>
+    <tr>
+        <td>color</td>
+        <td>{{ car.color|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>year</td>
+        <td>{{ car.year|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>millage</td>
+        <td>{{ car.millage|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>bookings</td>
+        <td><a href="{% url 'bookings-of-car' car.id %}">{{ car.booking_set.count}}</a></td>
+    </tr>
+</table>
+
+
+{% endblock %}

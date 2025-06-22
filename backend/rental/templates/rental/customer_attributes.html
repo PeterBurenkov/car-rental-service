@@ -1,0 +1,31 @@
+{% block content %}
+
+<table class="table sortable">
+    <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>{{ customer.id }}</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>{{ customer.name|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>email</td>
+        <td>{{ customer.email|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>phone</td>
+        <td>{{ customer.phone|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>bookings</td>
+        <td><a href="{% url 'bookings-of-customer' customer.id %}">{{ customer.booking_set.count}}</a></td>
+    </tr>
+</table>
+
+
+{% endblock %}

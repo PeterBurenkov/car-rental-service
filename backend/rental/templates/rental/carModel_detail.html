@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between">
+                <h5>Model #{{carmodel.id}}</h5>
+                <a href="{% url 'car-models' %}">Show all models</a>
+                <div>
+                    <a class='btn btn-sm btn-primary ml-2' href="{% url 'car-model-update' carmodel.id %}">Edit</a>
+                    <a class='btn btn-sm btn-danger ml-2' href="{% url 'car-model-delete' carmodel.id %}">Delete</a>
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            {% include 'rental/carModel_attributes.html' %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

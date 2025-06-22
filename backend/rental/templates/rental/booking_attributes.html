@@ -1,0 +1,39 @@
+{% block content %}
+
+<table class="table sortable">
+    <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>{{ booking.id }}</td>
+    </tr>
+    <tr>
+        <td>car</td>
+        <td>{{ booking.car|default_if_none:"" }}
+            (<a href="{% url 'car-detail' booking.car.id %}">#{{booking.car.id}}</a>)
+        </td>
+    </tr>
+    <tr>
+        <td>customer</td>
+        <td>{{ booking.customer|default_if_none:"" }}
+            (<a href="{% url 'customer-detail' booking.customer.id %}">#{{booking.customer.id}}</a>)
+        </td>
+    </tr>
+    <tr>
+        <td>date_from</td>
+        <td>{{ booking.date_from|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>date_to</td>
+        <td>{{ booking.date_to|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>days</td>
+        <td>{{ booking.days|default_if_none:"" }}</td>
+    </tr>
+</table>
+
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between">
+                <h5>Customer #{{customer.id}}</h5>
+                <a href="{% url 'customers' %}">Show all customers</a>
+                <div>
+                    <a class='btn btn-sm btn-primary ml-2' href="{% url 'customer-update' customer.id %}">Edit</a>
+                    <a class='btn btn-sm btn-danger ml-2' href="{% url 'customer-delete' customer.id %}">Delete</a>
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            {% include 'rental/customer_attributes.html' %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

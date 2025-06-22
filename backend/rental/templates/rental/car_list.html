@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h5>{{ title }}</h5>
+                    <div>{{ title_detail }}</div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <a class='btn btn-sm btn-primary ml-2' href="{% url 'car-create' %}">+ Add</a>
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            <table class="table sortable">
+                <tr>
+                    <th>Id</th>
+                    <th>Model</th>
+                    <th>Color</th>
+                    <th>Year</th>
+                    <th>Millage</th>
+                    <th>Bookings</th>
+                    <th>Modify</th>
+                </tr>
+
+                {% for item in items %}
+                <tr>
+                    <td><a href="{% url 'car-detail' item.id %}">{{ item.id }}</a></td>
+                    <td>{{ item.model|default_if_none:"" }}
+                        (<a href="{% url 'car-model-detail' item.model.id %}">#{{item.model.id}}</a>)</td>
+                    <td>{{ item.color|default_if_none:"" }}</td>
+                    <td>{{ item.year|default_if_none:"" }}</td>
+                    <td>{{ item.millage|default_if_none:"" }}</td>
+                    <td><a href="{% url 'bookings-of-car' item.id %}">{{ item.booking_set.count}}</a></td>
+                    <td>
+                        <a class='btn btn-sm btn-primary' href="{% url 'car-update' item.id %}">Edit</a>
+                        <a class='btn btn-sm btn-danger' href="{% url 'car-delete' item.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+

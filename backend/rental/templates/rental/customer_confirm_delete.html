@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between">
+                <h5>Delete Customer #{{customer.id}}</h5>
+            </div>
+        </div>
+        <div class="card card-body">
+
+            {% include 'rental/customer_attributes.html' %}
+
+            {% if customer.booking_set.all %}
+
+            <div class="alert alert-warning">
+                You can't delete this customer until all their
+                <a href="{% url 'bookings-of-customer' customer.id %}">bookings</a>
+                have been deleted
+            </div>
+
+            {% else %}
+            <p>Are you sure you want to delete this customer?</p>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="submit" action="" value="Yes, delete" class='btn btn-sm btn-danger'>
+                <button onclick="history.back();return false;" class='btn btn-sm btn-primary'>No, keep it</button>
+            </form>
+            {% endif %}
+        </div>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

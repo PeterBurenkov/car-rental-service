@@ -1,0 +1,33 @@
+{% block content %}
+
+<table class="table sortable">
+    <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>{{ carmodel.id }}</td>
+    </tr>
+    <tr>
+        <td>make</td>
+        <td>{{ carmodel.make|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>model</td>
+        <td>{{ carmodel.model|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>series</td>
+        <td>{{ carmodel.series|default_if_none:"" }}</td>
+    </tr>
+    <tr>
+        <td>cars</td>
+        <td>
+            <a href="{% url 'cars-of-model' carmodel.id %}">{{carmodel.car_set.count}}</a>
+        </td>
+    </tr>
+</table>
+
+
+{% endblock %}

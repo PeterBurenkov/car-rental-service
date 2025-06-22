@@ -1,0 +1,58 @@
+<div id="chart-container" style="height: 600px;"></div>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+  google.charts.load("current", {packages:["timeline"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+
+    var container = document.getElementById('chart-container');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Position' });
+    dataTable.addColumn({ type: 'string', id: 'Name' });
+    dataTable.addColumn({ type: 'string', role: 'tooltip', p: { html: true } });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+
+
+    dataTable.addRows([
+        {% for booking in bookings %}
+
+            [ '{{ booking.car}}',
+             '{{ booking.customer}}',
+              `<div style="padding:10px;">
+                    <strong>Booking:</strong> #{{booking.id}}<br>
+                    <strong>Period:</strong> {{booking.date_from}} - {{booking.date_to}}<br>
+                    <strong>Customer:</strong> {{booking.customer}} (#{{booking.customer.id}})<br>
+                    <strong>Car:</strong> {{booking.car}} (#{{booking.car.id}})<br>
+                    </div>`,
+               new Date({{booking.date_from_for_chart.year}},
+                    {{booking.date_from_for_chart.month}},
+                    {{booking.date_from_for_chart.day}}),
+                new Date({{booking.date_to.year}}, {{booking.date_to.month}}, {{booking.date_to.day}}),
+            ],
+        {% endfor %}
+
+        {% for car in cars_without_bookings %}
+
+            [ '{{car}}',
+             'free',
+              `<div style="padding:10px;">
+                    <strong>Free</strong>
+                    </div>`,
+               new Date({{min_date.year}},
+                    {{min_date.month}},
+                    {{min_date.day}}),
+                new Date({{max_date.year}}, {{max_date.month}}, {{max_date.day}}),
+            ],
+        {% endfor %}
+    ]);
+
+    chart.draw(dataTable, {
+          tooltip: { isHtml: true },
+        });
+  }
+</script>

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between">
+                <h5>Booking #{{booking.id}}</h5>
+                <a href="{% url 'bookings' %}">Show all bookings</a>
+                <div>
+                    <a class='btn btn-sm btn-primary ml-2' href="{% url 'booking-update' booking.id %}">Edit</a>
+                    <a class='btn btn-sm btn-danger ml-2' href="{% url 'booking-delete' booking.id %}">Delete</a>
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            {% include 'rental/booking_attributes.html' %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

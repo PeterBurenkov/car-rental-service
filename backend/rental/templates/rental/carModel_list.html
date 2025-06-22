@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-body">
+            <div class="d-flex justify-content-between">
+                <h5>All Models ({{ items.count }})</h5>
+                <div class="d-flex justify-content-between align-items-center">
+                    <a class='btn btn-sm btn-primary ml-2' href="{% url 'car-model-create' %}">+ Add</a>
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            <table class="table sortable">
+                <tr>
+                    <th>Id</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Series</th>
+                    <th>Cars</th>
+                    <th>Modify</th>
+                </tr>
+
+                {% for item in items %}
+                <tr>
+                    <td><a href="{% url 'car-model-detail' item.id %}">{{ item.id }}</a></td>
+                    <td>{{ item.make|default_if_none:"" }}</td>
+                    <td>{{ item.model|default_if_none:"" }}</td>
+                    <td>{{ item.series|default_if_none:"" }}</td>
+                    <td>
+                        <a href="{% url 'cars-of-model' item.id %}">{{ item.car_set.count}}</a>
+                    </td>
+                    <td>
+                        <a class='btn btn-sm btn-primary' href="{% url 'car-model-update' item.id %}">Edit</a>
+                        <a class='btn btn-sm btn-danger' href="{% url 'car-model-delete' item.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
