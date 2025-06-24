@@ -8,20 +8,21 @@ from .models import *
 
 class CarAdmin(DjangoQLSearchMixin, admin.ModelAdmin):
     list_display = [field.name for field in Car._meta.fields]
-    search_fields = ['color', 'year', 'millage']
+    search_fields = list_display
 
-
-class CarModelAdmin(admin.ModelAdmin):
+class CarModelAdmin(DjangoQLSearchMixin, admin.ModelAdmin):
     list_display = [field.name for field in CarModel._meta.fields]
+    search_fields = list_display
 
 
-class CustomerAdmin(admin.ModelAdmin):
+class CustomerAdmin(DjangoQLSearchMixin, admin.ModelAdmin):
     list_display = [field.name for field in Customer._meta.fields]
-    search_fields = [field.name for field in Customer._meta.fields]
+    search_fields = list_display
 
 
-class BookingAdmin(admin.ModelAdmin):
+class BookingAdmin(DjangoQLSearchMixin, admin.ModelAdmin):
     list_display = [field.name for field in Booking._meta.fields]
+    search_fields = list_display
 
 
 for model_class, admin_class in [
